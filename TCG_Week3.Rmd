@@ -1,0 +1,111 @@
+---
+title: "TCG_Week3.Rmd"
+output: html_document
+---
+```{r Read_the_file_dataframe}
+MyData <- data.frame(read.csv(file="W:/Masters_WIU/SEM_3/T_Computer Graphics/Week_3/myInformation.csv", header=TRUE, sep=","))
+MyData    #Using read.csv()
+
+data <- read.table("W:/Masters_WIU/SEM_3/T_Computer Graphics/Week_3/myInformation.csv")
+data
+
+infoValues <- matrix(51:70, nrow = 10, ncol = 2)
+dimnames(infoValues) <- list(c("a", "b","c","d","e","f","g","h","i","j"), c("1", "2"))
+infoValues  #Using read.table()
+
+infoValues <- 10:14
+infoValues    #Prints 10 to 14
+names(infoValues)  #Prints 'NULL'
+names(infoValues) <- c("Hyderabad", "Dubai", "SanFrancisCO","Macomb")
+names(infoValues)    #data gets overridden with the latest data
+
+
+```
+
+```{r Creating_2_Vectors}
+DF_MyData_Col_1 <- MyData[,1]
+DF_MyData_Col_2 <- MyData[,2]
+print(DF_MyData_Col_1)
+print(DF_MyData_Col_2)
+Column_1 <- c(MyData)
+Column_1$Col1    #Alternative Syntax of printing Col1 Data
+Column_2 <- c(MyData)
+Column_2$Col2    #Alternative Syntax of printing Col2 Data
+A <- data.frame(a=LETTERS[1:4], b=1:4, c=rnorm(4))
+A$d      # to delete column "d"
+A$e      # add in a new column "e"
+A
+
+```
+
+```{r Mean_Of_1st_Vector}
+sum <- 0
+n <- 0
+total <- 0
+for(i in seq_along(DF_MyData_Col_1)) {
+print(DF_MyData_Col_1[i])
+  sum <- sum+i
+  n <- n+1
+}
+total <- sum/n
+print(total)  #Mean of the first vector i.e (sum of all numbers/total number of numbers) and storing resultant value in variable z
+
+```
+
+```{r Create a function}
+f <- function() {        #printing "Hello World"
+cat("Hello, world!\n")
+}
+f()
+
+f <- function(num) {      #printing "Welcome to R Programming!"
+for(i in seq_len(num)) {
+cat("Welcome to R Programming!\n")
+}
+}
+f(3)
+findMean <- function(x){    #Creating function to store mean
+  sumTotal <<- sumTotal + x
+  numElements <<- numElements + 1
+}
+
+```
+
+```{r Using lapply}
+sumTotal <<-0
+numElements <<- 0
+lapply(DF_MyData_Col_2,findMean)
+averageDF_MyData_Col_2 <- sumTotal/numElements
+print(averageDF_MyData_Col_2)
+x <- list(a = 1:4, b = rnorm(10), c = rnorm(20, 1), d = rnorm(100, 5))
+lapply(x, mean)
+x <- 1:4
+lapply(x, runif)
+x <- 1:4
+lapply(x, runif, min = 0, max = 10)
+
+```
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## R Markdown
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+```{r cars}
+summary(cars)
+```
+
+## Including Plots
+
+You can also embed plots, for example:
+
+```{r pressure, echo=FALSE}
+plot(pressure)
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
