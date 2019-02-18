@@ -1,0 +1,31 @@
+---
+title: "TCG_Week5.Rmd"
+author: "Layeeq"
+date: "17Feb2019"
+output: html_document
+---
+```{r}
+
+#install.packages("rvest")
+#install.packages("lubridate")
+library(lubridate)
+library(rvest)
+urllink <- read_html("http://www.elections.in/political-leaders/date-of-birth.html")
+Bestcount <- html_table(urllink)[[1]]
+data<-data.frame(Bestcount)
+data
+
+data$CurrentAge <- floor(
+  difftime((Sys.Date()),
+           as.Date(as.character(data$Date.of.Birth), '07 September 1977',format='%d %B %Y'),
+           unit="weeks"))
+data$CurrentAge <- as.double(data$CurrentAge)/52.14
+data
+
+
+
+```
+```{r}
+
+
+
