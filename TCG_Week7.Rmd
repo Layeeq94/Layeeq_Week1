@@ -1,0 +1,33 @@
+---
+title: "Untitled"
+author: "Layeeq"
+date: "21 March 2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+```{r}
+
+#install.packages("ggplot2")
+library(rvest)
+library(plyr)
+library(lubridate)
+library(ggplot2)
+
+urllink <- read_html("http://www.worldometers.info/world-population/africa-population/")
+data <- data.frame (html_table(urllink,fill = TRUE)[[3]])
+data
+
+
+data$Population <- as.integer(data$Density..P.Km².)
+data
+
+ggplot(data, aes(x=Year, y=Density..P.Km².)) +
+    geom_point(shape=1) + geom_smooth()      # Use hollow circles
+ggplot(data, aes(x=Year, y=Density..P.Km².)) +
+   geom_point(shape=1) +  geom_smooth(method=lm) 
+
+```
+
