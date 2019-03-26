@@ -1,0 +1,32 @@
+---
+title: "TCG_Week8"
+author: "Layeeq"
+date: "24 March 2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+```{r}
+
+#install.packages("ggplot2")
+library(rvest)
+library(plyr)
+library(lubridate)
+library(ggplot2)
+
+urllink <- read_html("http://www.espncricinfo.com/table/series/8050/season/2018/ranji-trophy")
+data <- data.frame (html_table(urllink,fill = TRUE)[[3]]) 
+data
+ggplot(data, aes(x=M, y=W)) +
+   geom_point()     
+set.seed(20)
+dataCluster <- kmeans(data[, 2:3], 3, nstart = 20)
+dataCluster
+centers=as.data.frame(dataCluster$centers)
+dataCluster$cluster <- as.factor(dataCluster$cluster)
+plot (data$M, data$W, col = dataCluster$cluster, pch = 19, cex = 2)
+points(dataCluster$centers,col = 2:3,pch = 3,cex = 3,lwd = 3)
+
+```
